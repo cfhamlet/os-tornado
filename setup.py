@@ -23,7 +23,7 @@ setup(
     description='A framework to simplify tornado daemon development.',
     long_description=open('README.rst').read(),
     author='Ozzy',
-    author_email='cfhamlet@example.com',
+    author_email='cfhamlet@gmail.com',
     url='https://github.com/cfhamlet/os-tornado',
     install_requires=open('requirements.txt').read().split('\n'),
     zip_safe=False,

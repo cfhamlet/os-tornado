@@ -19,7 +19,7 @@ Requirements
 
 Install
 -------
-  ``python setup.py install``
+  ``pip install os-tornado``
 
 Usage
 ------
@@ -31,27 +31,30 @@ Usage
   Will create a project structure::
 
     new_project/
-   ├── app
-   │   ├── extensions
-   │   │   ├── example_extension.py
-   │   │   ├── __init__.py
-   │   ├── request_handlers
-   │   │   ├── example_handler.py
-   │   │   ├── __init__.py
-   │   ├── __init__.py
-   │   ├── settings.py
-   └── manager.py
-
+    ├── app
+    │   ├── extensions
+    │   │   ├── example_extension.py
+    │   │   ├── __init__.py
+    │   ├── request_handlers
+    │   │   ├── example_handler.py
+    │   │   ├── __init__.py
+    │   ├── __init__.py
+    │   ├── settings.py
+    └── manager.py
 
 * Write your extensions and request handlers
 
   * Extension
 
-    
+    You can implement ``setup``, ``run``, ``cleanup`` for your need.
   
   * Request handler
 
     See `tornado.web — RequestHandler and Application classes <http://www.tornadoweb.org/en/stable/web.html>`_
+
+    You can get extension inside request handler:
+
+    ``self.application.manager.get_extenion(extension_name)``
 
 * Configure settings (app/settings.py)
 
@@ -63,3 +66,7 @@ Usage
 Unit Tests
 ----------
   ``$ tox``
+
+License
+--------
+MIT licensed.

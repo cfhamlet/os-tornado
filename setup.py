@@ -1,30 +1,39 @@
-import os
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup, find_packages
 
-__PATH__ = os.path.dirname(__file__)
 
-with open(os.path.join(__PATH__, 'README.rst')) as readme:
-    README = readme.read()
+def read(*filenames, **kwargs):
+    import io
+    from os.path import join, dirname
+    encoding = kwargs.get('encoding', 'utf-8')
+    sep = kwargs.get('sep', '\n')
+    buf = []
+    for filename in filenames:
+        with io.open(join(dirname(__file__), filename), encoding=encoding) as f:
+            buf.append(f.read())
+    return sep.join(buf)
 
-with open(os.path.join(__PATH__, 'requirements.txt')) as requirements:
-    REQUIREMENTS = requirements.read().split('\n')
 
 setup(
     name='os-tornado',
-    version='0.1',
-    packages=['os_tornado'],
+    version=read('src/os_tornado/VERSION'),
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     include_package_data=True,
     license='MIT License',
     description='A framework to simplify tornado daemon development.',
-    long_description=README,
+    long_description=open('README.rst').read(),
     author='Ozzy',
     author_email='cfhamlet@example.com',
     url='https://github.com/cfhamlet/os-tornado',
-    install_requires=REQUIREMENTS,
+    install_requires=open('requirements.txt').read().split('\n'),
     zip_safe=False,
+    entry_points={
+        'console_scripts': ['os-tornado = os_tornado.cmdline:execute']
+    },
     classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
         'Programming Language :: Python :: 2.7',
     ])

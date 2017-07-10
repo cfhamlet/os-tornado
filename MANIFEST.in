@@ -1,4 +1,8 @@
 include LICENSE
 include README.rst
-include MANIFETST.in
+include MANIFEST.in
 include requirements.txt
+include src/os_tornado/VERSION
+recursive-include src/os_tornado/commands/project_template *
+recursive-include tests *.py
+

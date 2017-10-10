@@ -1,7 +1,7 @@
 import logging
 import tornado
 from os_tornado.log import configure_logging
-from os_tornado.settings import get_tornado_app_settings
+from os_tornado.settings import get_tornado_app_settings, get_tornado_server_settings
 from os_tornado.utils.signal_utils import install_shutdown_handlers
 
 
@@ -42,7 +42,9 @@ class Runner(object):
                 get_tornado_app_settings(self.settings))
             app.manager = self._manager
             port = self.settings.get_int("HTTP_PORT")
-            app.listen(port)
+            bind_address = self.settings.get('BIND_ADDRESS', '')
+            server_settings = get_tornado_server_settings(self.settings)
+            app.listen(port, bind_address, **server_settings)
             self._logger.info('listen port %d', port)
         else:
             self._logger.warn('no http interface, HTTP_PORT: %s',

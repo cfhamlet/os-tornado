@@ -9,6 +9,7 @@ from collections import MutableMapping
 from . import default_settings
 
 TORNADO_APP_SETTINGS_PREFIX = "TORNADO_APP_SETTINGS_"
+TORNADO_SERVER_SETTINGS_PREFIX = "TORNADO_SERVER_SETTINGS_"
 
 
 class Settings(MutableMapping):
@@ -197,10 +198,19 @@ def iter_overridden_settings(settings):
             yield name, value
 
 
-def get_tornado_app_settings(settings):
-    tornado_app_settings = {}
+def _get_setttings_by_prefix(settings, prefix):
+    p_settings = {}
+    prefix_length = len(prefix)
     for key in settings:
-        if key.startswith(TORNADO_APP_SETTINGS_PREFIX):
-            k = key[len(TORNADO_APP_SETTINGS_PREFIX):].lower()
-            tornado_app_settings[k] = settings[key]
-    return tornado_app_settings
+        if key.startswith(prefix):
+            k = key[prefix_length:].lower()
+            p_settings[k] = settings[key]
+    return p_settings
+
+
+def get_tornado_app_settings(settings):
+    return _get_setttings_by_prefix(settings, TORNADO_APP_SETTINGS_PREFIX)
+
+
+def get_tornado_server_settings(settings):
+    return _get_setttings_by_prefix(settings, TORNADO_SERVER_SETTINGS_PREFIX)

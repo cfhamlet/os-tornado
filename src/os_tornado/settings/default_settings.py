@@ -9,3 +9,4 @@ LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
 
 HTTP_PORT = 8080
 BIND_ADDRESS = ''
+DEFAULT_HOST = ''

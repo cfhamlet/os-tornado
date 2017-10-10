@@ -39,7 +39,9 @@ class Runner(object):
             self._manager.load_request_handlers()
             app = tornado.web.Application(
                 self._manager.get_all_request_handlers(),
-                get_tornado_app_settings(self.settings))
+                default_host=self.settings.get('DEFAULT_HOST', ''),
+                transforms=None,
+                **get_tornado_app_settings(self.settings))
             app.manager = self._manager
             port = self.settings.get_int("HTTP_PORT")
             bind_address = self.settings.get('BIND_ADDRESS', '')

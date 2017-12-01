@@ -60,8 +60,8 @@ Usage
 
     You can set tornado inner app settings and server settings with specified PREFIX:
 
-    * 'TORNADO_APP_SETTINGS_'
-    * 'TORNADO_SERVER_SETTINGS_'
+    * TORNADO_APP_SETTINGS_
+    * TORNADO_SERVER_SETTINGS_
 
     example:
 

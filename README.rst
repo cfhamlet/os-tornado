@@ -62,8 +62,7 @@ Usage
 
     * TORNADO_APP_SETTINGS_
     * TORNADO_SERVER_SETTINGS_
-
-
+    
     example:
 
     ``TORNADO_APP_SETTINGS_DEBUG = True``

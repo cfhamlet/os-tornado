@@ -1,5 +1,6 @@
 import logging
 import tornado
+from tornado.autoreload import add_reload_hook
 from os_tornado.log import configure_logging
 from os_tornado.settings import get_tornado_app_settings, get_tornado_server_settings
 from os_tornado.utils.signal_utils import install_shutdown_handlers
@@ -10,6 +11,7 @@ class Runner(object):
         self._manager = manager
         self._logger = logging.getLogger('Runner')
         install_shutdown_handlers(self._cleanup_and_stop)
+        add_reload_hook(self._cleanup)
 
     @property
     def settings(self):
@@ -17,10 +19,13 @@ class Runner(object):
 
     def _cleanup_and_stop(self, signum, frame):
         self._logger.debug('Recieve stop signal %d', signum)
-        self._logger.info('[CLEANUP] Extensions')
-        self._manager.cleanup_extensions()
+        self._cleanup()
         tornado.ioloop.IOLoop.current().add_callback_from_signal(
             self._do_stop, signum, frame)
+
+    def _cleanup(self):
+        self._logger.info('[CLEANUP] Extensions')
+        self._manager.cleanup_extensions()
 
     def _do_stop(self, signum, frame):
         self._logger.info('stop')

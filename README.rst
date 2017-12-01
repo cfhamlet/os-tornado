@@ -8,8 +8,7 @@ os-tornado
 .. image:: https://codecov.io/gh/cfhamlet/os-tornado/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/cfhamlet/os-tornado
 
-A framework to simplify tornado daemon development 
-and project orgnization.
+A framework to organize tornado project and simplify development.
 
 Requirements
 -------------
@@ -19,6 +18,7 @@ Requirements
 
 Install
 -------
+
   ``pip install os-tornado``
 
 Usage
@@ -46,7 +46,7 @@ Usage
 
   * Extension
 
-    You can implement ``setup``, ``run``, ``cleanup`` for your need.
+    You can implement ``setup``, ``run``, ``cleanup`` as your need.
   
   * Request handler
 
@@ -57,6 +57,15 @@ Usage
     ``self.application.manager.get_extenion(extension_name)``
 
 * Configure settings (app/settings.py)
+
+    You can set tornado inner app settings and server settings with specified PREFIX:
+
+    * 'TORNADO_APP_SETTINGS_'
+    * 'TORNADO_SERVER_SETTINGS_'
+
+      example:
+
+      ``TORNADO_APP_SETTINGS_DEBUG = True``
 
 * Run server
 

@@ -19,7 +19,7 @@ Requirements
 Install
 -------
 
-  ``pip install os-tornado``
+``pip install os-tornado``
 
 Usage
 ------
@@ -63,9 +63,9 @@ Usage
     * 'TORNADO_APP_SETTINGS_'
     * 'TORNADO_SERVER_SETTINGS_'
 
-      example:
+    example:
 
-      ``TORNADO_APP_SETTINGS_DEBUG = True``
+    ``TORNADO_APP_SETTINGS_DEBUG = True``
 
 * Run server
 
@@ -74,8 +74,10 @@ Usage
 
 Unit Tests
 ----------
-  ``$ tox``
+
+``$ tox``
 
 License
 --------
+
 MIT licensed.

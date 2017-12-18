@@ -5,7 +5,7 @@ class ExampleExtension(Extension):
     def setup(self):
         super(ExampleExtension, self).setup()
         self._logger.debug('setup')
-        self._logger.debug('ext settings: %s' % str(self.ext_settings))
+        self._logger.debug('extension settings: %s' % str(self.ext_settings))
 
     def run(self):
         super(ExampleExtension, self).run()

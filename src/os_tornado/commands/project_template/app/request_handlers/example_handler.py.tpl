@@ -5,5 +5,5 @@ class ExampleHandler(RequestHandler):
     def initialize(self, **kwargs):
         self.handler_settings = kwargs
     
-    def get(self):
+    def get(self, *args, **kwargs):
         self.write(json.dumps(self.handler_settings))

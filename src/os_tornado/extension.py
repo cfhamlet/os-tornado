@@ -10,7 +10,7 @@ class ExtensionManager(object):
     def __init__(self, manager):
         self._manager = manager
         self._exts = collections.OrderedDict()
-        self._logger = logging.getLogger('ExtManager')
+        self._logger = logging.getLogger('ExtensionManager')
         self._loaded = False
 
     def load(self):
@@ -20,30 +20,45 @@ class ExtensionManager(object):
         if not exts:
             return
         for ext_settings in exts:
-            ext = self._load_extension(ext_settings)
-            c_path = ext_settings['extension_class']
-            if not ext:
+            extension_cls = self._load_extension(ext_settings)
+            if not extension_cls:
                 continue
-            if ext.name not in self._exts:
-                self._exts[ext.name] = ext
-                self._logger.info('[LOAD] [SUCC] %s %s.%s',
-                                  ext.name, ext.__module__, ext.__class__.__name__)
+
+            name = extension_cls.name
+            if 'name' not in ext_settings:
+                self._logger.warn('[LOAD] no name, will use %s' % name)
+            else:
+                name = ext_settings['name']
+
+            ext_settings.pop('extension_class')
+            if name not in self._exts:
+                self._exts[name] = extension_cls
+                self._logger.info('[LOAD] [SUCC] %s %s.%s %s',
+                                  name, extension_cls.__module__,
+                                  extension_cls.__class__.__name__,
+                                  str(ext_settings) if ext_settings else '')
             else:
                 self._logger.warn(
-                    '[LOAD] [SKIP] already exist: %s, %s', ext.name, c_path)
+                    '[LOAD] [SKIP] already exist: %s, %s', name, str(ext_settings))
         self._loaded = True
 
     def _load_extension(self, ext_settings):
         ext = None
+        if 'extension_class' not in ext_settings:
+            self._logger.error(
+                '[LOAD] no extension_class, %s' % str(ext_settings))
+            return ext
+
         try:
-            _cls = load_class(ext_settings['extension_class'], Extension)
+            extension_class_str = ext_settings['extension_class']
+            _cls = load_class(extension_class_str, Extension)
             if _cls:
                 ext = _cls(self._manager, ext_settings)
             else:
-                self._logger.warn('[LOAD] [FAIL] invalid: %s',
-                                  ext_settings['extension_class'])
+                self._logger.error('[LOAD] invalid, %s', extension_class_str)
+
         except Exception, e:
-            self._logger.error('[LOAD] [FAIL] %s', e)
+            self._logger.error('[LOAD] %s, %s' % (e, str(ext_settings)))
         return ext
 
     def iter_extensions(self):
@@ -80,7 +95,7 @@ class Extension(object):
         self._manager = manager
         self._ext_settings = ext_settings
         self._name = ext_settings.get('name', self.__class__.__name__).strip()
-        self._logger = logging.getLogger('Ext/%s' % self._name)
+        self._logger = logging.getLogger('Extension/%s' % self._name)
 
     @property
     def name(self):

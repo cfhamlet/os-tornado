@@ -10,24 +10,24 @@ class ComponentManager(object):
     """
     def __init__(self, settings):
         self._settings = settings
-        self._ext_manager = ExtensionManager(self)
+        self._extension_manager = ExtensionManager(self)
         self._request_handler_manager = RequestHandlerManager(self)
 
     def load_extensions(self):
-        self._ext_manager.load()
+        self._extension_manager.load()
 
     def load_request_handlers(self):
         self._request_handler_manager.load()
 
     def get_extension(self, name):
-        return self._ext_manager.get_extension(name)
+        return self._extension_manager.get_extension(name)
 
     @property
     def settings(self):
         return self._settings
 
     def iter_extensions(self):
-        return self._ext_manager.iter_extensions()
+        return self._extension_manager.iter_extensions()
 
     def iter_request_handlers(self):
         return self._request_handler_manager.iter_handlers()
@@ -36,10 +36,10 @@ class ComponentManager(object):
         return self._request_handler_manager.get_all_handlers()
 
     def setup_extensions(self):
-        self._ext_manager.setup()
+        self._extension_manager.setup()
 
     def cleanup_extensions(self):
-        self._ext_manager.cleanup()
+        self._extension_manager.cleanup()
 
     def run_extensions(self):
-        self._ext_manager.run()
+        self._extension_manager.run()

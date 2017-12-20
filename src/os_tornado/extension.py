@@ -9,7 +9,7 @@ from os_tornado.utils.module_utils import load_class
 class ExtensionManager(object):
     def __init__(self, manager):
         self._manager = manager
-        self._exts = collections.OrderedDict()
+        self._extensions = collections.OrderedDict()
         self._logger = logging.getLogger('ExtensionManager')
         self._loaded = False
 
@@ -31,15 +31,15 @@ class ExtensionManager(object):
                 name = ext_settings['name']
 
             ext_settings.pop('extension_class')
-            if name not in self._exts:
-                self._exts[name] = extension_cls
-                self._logger.info('[LOAD] [SUCC] %s %s.%s %s',
+            if name not in self._extensions:
+                self._extensions[name] = extension_cls
+                self._logger.info('[LOAD] SUCC %s %s.%s %s',
                                   name, extension_cls.__module__,
                                   extension_cls.__class__.__name__,
                                   str(ext_settings) if ext_settings else '')
             else:
                 self._logger.warn(
-                    '[LOAD] [SKIP] already exist: %s, %s', name, str(ext_settings))
+                    '[LOAD] SKIP already exist: %s, %s', name, str(ext_settings))
         self._loaded = True
 
     def _load_extension(self, ext_settings):
@@ -62,32 +62,33 @@ class ExtensionManager(object):
         return ext
 
     def iter_extensions(self):
-        for name in self._exts:
-            yield self._exts[name]
+        for name in self._extensions:
+            yield self._extensions[name]
 
     def setup(self):
-        for ext in self._exts.values():
+        for ext in self._extensions.values():
             try:
                 ext.setup()
             except Exception as e:
                 self._logger.error('[SETUP] %s %s' % (ext.name, e))
 
     def cleanup(self):
-        for ext in reversed(self._exts.values()):
+        for ext in reversed(self._extensions.values()):
             try:
                 ext.cleanup()
             except Exception as e:
                 self._logger.error('[CLEANUP] %s %s' % (ext.name, e))
+        self._extensions.clear()
 
     def run(self):
-        for ext in self._exts.values():
+        for ext in self._extensions.values():
             try:
                 ext.run()
             except Exception as e:
                 self._logger.error('[RUN] %s %s' % (ext.name, e))
 
     def get_extension(self, name):
-        return self._exts.get(name, None)
+        return self._extensions.get(name, None)
 
 
 class Extension(object):

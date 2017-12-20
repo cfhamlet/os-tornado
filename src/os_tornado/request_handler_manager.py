@@ -37,7 +37,7 @@ class RequestHandlerManager(object):
             self._handlers.append(
                 (pattern, handler_cls, h_settings))
             self._logger.info(
-                '[LOAD] [SUCC] %s %s.%s %s',
+                '[LOAD] SUCC %s %s.%s %s',
                 pattern, handler_cls.__module__, handler_cls.__name__,
                 str(h_settings) if h_settings else "")
         self._loaded = True

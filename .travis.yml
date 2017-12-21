@@ -10,7 +10,7 @@ install:
 - pip install codecov
 script:
 - coverage erase
-- coverage run -m py.test
+- coverage run -m pytest
 - coverage combine
 after_success:
 - codecov

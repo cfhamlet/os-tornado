@@ -21,7 +21,7 @@ def _jsonify_write_error(method):
             instance.finish()
         else:
             #http_error = kwargs['exc_info'][1]
-            response = {'statsu_code': status_code}
+            response = {'status_code': status_code}
             if instance._reason is not None:
                 response['reason'] = instance._reason
 

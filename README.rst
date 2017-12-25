@@ -72,6 +72,27 @@ Usage
   ``python manager runserver``
 
 
+
+Advanced Usage
+--------------
+  
+* ``os_tornado.decorators.jsonify``
+  
+  jsonify returned dict and raised HTTPError
+  
+  example:
+
+  .. code-block:: python
+
+    @jsonify
+    class ExampleHandler(RequestHandler):
+    
+        def get(self, *args, **kwargs):
+            return {'status':'ok'}
+              
+        def post(self, *args, **kwargs):
+            raise HTTPHandler(404)
+
 Unit Tests
 ----------
 

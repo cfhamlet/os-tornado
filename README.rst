@@ -86,6 +86,7 @@ Advanced Usage
 
     @jsonify
     class ExampleHandler(RequestHandler):
+    
         def get(self, *args, **kwargs):
             return {'status':'ok'}
               

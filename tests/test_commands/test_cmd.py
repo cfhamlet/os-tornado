@@ -1,5 +1,6 @@
 import os
 import os_tornado
+import tornado
 from tests.test_commands.cmd import run
 
 
@@ -47,3 +48,19 @@ def test_cmdline():
     result, _ = run()
     for cmd in ['list', 'runserver', 'startproject', 'version']:
         assert cmd in result
+
+
+def test_runserver():
+    port = tornado.testing.get_unused_port()
+    env = os.environ.copy()
+    env["OS_TORNADO_SETTINGS_MODULE"] = 'tests.test_commands.settings'
+    env["TEST_CMD_CALLBACK_STOP"] = 'TRUE'
+    stdout, stderr = run('runserver -p %d' % port, env=env)
+    flags = [
+        '[LOAD] SUCC Temp tests.test_commands.temp_extension.TempExtension',
+        '[LOAD] SUCC / tests.test_commands.temp_handler.TempHandler',
+        'listen port %d' % port,
+    ]
+    for flag in flags:
+        assert flag in stderr
+    assert 'STOP SUCC' in stdout

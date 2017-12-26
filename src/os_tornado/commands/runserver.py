@@ -15,10 +15,10 @@ class RunserverCommand(Command):
         super(RunserverCommand, self).add_options(parser)
         default_port = self.settings["HTTP_PORT"]
         parser.add_option("-p", "--port", action="store", dest="http_port",
-                          type=int, default=default_port,
-                          help="set http port (default: %s)" % str(default_port))
+                          type=int, help="set http port (default: %s)" % str(default_port))
 
     def process_options(self, args, opts):
+        super(RunserverCommand, self).process_options(args, opts)
         if opts.http_port:
             self.settings["HTTP_PORT"] = opts.http_port
 

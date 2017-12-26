@@ -64,3 +64,12 @@ def test_runserver():
     for flag in flags:
         assert flag in stderr
     assert 'STOP SUCC' in stdout
+
+    port = tornado.testing.get_unused_port()
+    stdout, stderr = run('runserver -s HTTP_PORT=%d' % port, env=env)
+    assert 'listen port %d' % port in stderr
+
+    port1 = tornado.testing.get_unused_port()
+    stdout, stderr = run('runserver -s HTTP_PORT=%d -p %d' %
+                         (port, port1), env=env)
+    assert 'listen port %d' % port1 in stderr

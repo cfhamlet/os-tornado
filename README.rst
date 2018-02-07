@@ -69,7 +69,7 @@ Usage
 
 * Run server
 
-  ``python manager runserver``
+  ``python manager.py runserver``
 
 
 

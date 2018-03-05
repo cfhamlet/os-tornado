@@ -61,10 +61,11 @@ Usage
 
 * Configure settings (app/settings.py)
 
-    You can set tornado inner app settings and server settings with specified PREFIX:
+  * You can set tornado inner app settings and server settings with specified PREFIX:
 
-    * TORNADO_APP_SETTINGS_
-    * TORNADO_SERVER_SETTINGS_
+    ``TORNADO_APP_SETTINGS_``
+
+    ``TORNADO_SERVER_SETTINGS_``
     
     example:
 

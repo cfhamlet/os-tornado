@@ -63,9 +63,9 @@ Usage
 
   * You can set tornado inner app settings and server settings with specified PREFIX:
 
-    ``TORNADO_APP_SETTINGS_``
+    `TORNADO_APP_SETTINGS_ <http://www.tornadoweb.org/en/stable/web.html#tornado.web.Application.settings>`_
 
-    ``TORNADO_SERVER_SETTINGS_``
+    `TORNADO_SERVER_SETTINGS_ <http://www.tornadoweb.org/en/stable/httpserver.html#tornado.httpserver.HTTPServer>`_
     
     example:
 

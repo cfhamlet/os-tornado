@@ -8,13 +8,16 @@ os-tornado
 .. image:: https://codecov.io/gh/cfhamlet/os-tornado/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/cfhamlet/os-tornado
 
+.. image:: https://img.shields.io/pypi/pyversions/os-tornado.svg
+   :alt: PyPI - Python Version
+   :target: https://pypi.python.org/pypi/os-tornado
+  
+.. image:: https://img.shields.io/pypi/v/os-tornado.svg
+   :alt: PyPI
+   :target: https://pypi.python.org/pypi/os-tornado
+
+
 A framework to organize tornado project and simplify development.
-
-Requirements
--------------
-
-* Python2.7
-* Works on Linux
 
 Install
 -------

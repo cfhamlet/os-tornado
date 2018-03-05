@@ -8,13 +8,16 @@ os-tornado
 .. image:: https://codecov.io/gh/cfhamlet/os-tornado/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/cfhamlet/os-tornado
 
+.. image:: https://img.shields.io/pypi/pyversions/os-tornado.svg
+   :alt: PyPI - Python Version
+   :target: https://pypi.python.org/pypi/os-tornado
+  
+.. image:: https://img.shields.io/pypi/v/os-tornado.svg
+   :alt: PyPI
+   :target: https://pypi.python.org/pypi/os-tornado
+
+
 A framework to organize tornado project and simplify development.
-
-Requirements
--------------
-
-* Python2.7
-* Works on Linux
 
 Install
 -------
@@ -58,10 +61,11 @@ Usage
 
 * Configure settings (app/settings.py)
 
-    You can set tornado inner app settings and server settings with specified PREFIX:
+  * You can set tornado inner app settings and server settings with specified PREFIX:
 
-    * TORNADO_APP_SETTINGS_
-    * TORNADO_SERVER_SETTINGS_
+    `TORNADO_APP_SETTINGS_ <http://www.tornadoweb.org/en/stable/web.html#tornado.web.Application.settings>`_
+
+    `TORNADO_SERVER_SETTINGS_ <http://www.tornadoweb.org/en/stable/httpserver.html#tornado.httpserver.HTTPServer>`_
     
     example:
 

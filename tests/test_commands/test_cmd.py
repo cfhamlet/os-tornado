@@ -1,6 +1,9 @@
 import os
+
 import os_tornado
+import pytest
 import tornado
+
 from tests.test_commands.cmd import run
 
 
@@ -50,6 +53,7 @@ def test_cmdline():
         assert cmd in result
 
 
+@pytest.mark.skip(reason="tornado do not support get_unused_port")
 def test_runserver():
     port = tornado.testing.get_unused_port()
     env = os.environ.copy()

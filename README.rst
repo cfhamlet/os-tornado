@@ -95,7 +95,7 @@ Advanced Usage
             return {'status':'ok'}
               
         def post(self, *args, **kwargs):
-            raise HTTPHandler(404)
+            raise HTTPHandler(405)
 
 Unit Tests
 ----------

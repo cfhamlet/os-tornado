@@ -1,7 +1,9 @@
 # coding: utf-8
 
-LOG_LEVEL = "DEBUG"
 TORNADO_APP_SETTINGS_COOKIE_SECRET = "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__"
+
+LOG_LEVEL = "DEBUG"
+HTTP_PORT = 8080
 
 EXTENSIONS = [
     {
@@ -11,7 +13,6 @@ EXTENSIONS = [
     }
 ]
 
-HTTP_PORT = 8080
 REQUEST_HANDLERS = [
     {
         "pattern":r"/",

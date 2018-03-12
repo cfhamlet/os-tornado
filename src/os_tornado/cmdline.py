@@ -2,13 +2,15 @@
 Command line
 """
 from __future__ import print_function
-import sys
-import os
+
 import optparse
+import os
+import sys
+
 import os_tornado
+from os_tornado.commands import Command
 from os_tornado.exceptions import UsageError
 from os_tornado.settings import Settings
-from os_tornado.commands import Command
 from os_tornado.utils.module_utils import iter_classes
 
 ENVVAR = 'OS_TORNADO_SETTINGS_MODULE'
@@ -50,21 +52,23 @@ def _print_header(settings):
 
 def _print_commands(settings):
     _print_header(settings)
+    program_name = os.path.basename(sys.argv[0])
     print("Usage:")
-    print("  %s <command> [options] [args]\n" % sys.argv[0])
+    print("  %s <command> [options] [args]\n" % program_name)
     print("Available commands:")
     cmds = _get_commands_dict(settings)
     for cmdname, cmdclass in sorted(cmds.items()):
         print("  %-18s %s" % (cmdname, cmdclass.short_desc()))
     print()
-    print('Use "%s <command> -h" to see more info about a command' %
-          sys.argv[0])
+    print('Use "%s <command> -h" to see more info about a command' % program_name)
 
 
 def _print_unknown_command(settings, cmd_name):
     _print_header(settings)
     print("Unknown command: %s\n" % cmd_name)
-    print('Use "%s" to see available commands' % sys.argv[0])
+
+    program_name = os.path.basename(sys.argv[0])
+    print('Use "%s" to see available commands' % program_name)
 
 
 def _run_print_help(parser, func, *a, **kw):
@@ -92,7 +96,8 @@ def execute(argv=None):
         _print_unknown_command(settings, cmd_name)
         sys.exit(2)
     cmd = cmds[cmd_name]
-    parser.usage = "%s %s %s" % (argv[0], cmd_name, cmd.syntax())
+    program_name = os.path.basename(argv[0])
+    parser.usage = "%s %s %s" % (program_name, cmd_name, cmd.syntax())
     parser.description = cmd.long_desc()
     cmd.add_options(parser)
     opts, args = parser.parse_args(args=argv[2:])

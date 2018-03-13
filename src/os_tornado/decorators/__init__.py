@@ -1,1 +1,1 @@
-from json_response import jsonify
+from .json_response import jsonify

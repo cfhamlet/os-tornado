@@ -57,7 +57,7 @@ class ExtensionManager(object):
             else:
                 self._logger.error('[LOAD] invalid, %s', extension_class_str)
 
-        except Exception, e:
+        except Exception as e:
             self._logger.error('[LOAD] %s, %s' % (e, str(ext_settings)))
         return ext
 

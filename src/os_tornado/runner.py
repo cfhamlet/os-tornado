@@ -39,7 +39,7 @@ class Runner(object):
         self._logger.info('[SETUP] extensions')
         self._manager.setup_extensions()
 
-        if self.settings["HTTP_PORT"]:
+        if self.settings["PORT"]:
             self._logger.info('[LOAD] request handlers')
             self._manager.load_request_handlers()
             app = tornado.web.Application(
@@ -48,14 +48,14 @@ class Runner(object):
                 transforms=None,
                 **get_tornado_app_settings(self.settings))
             app.manager = self._manager
-            port = self.settings.get_int("HTTP_PORT")
+            port = self.settings.get_int("PORT")
             bind_address = self.settings.get('BIND_ADDRESS', '')
             server_settings = get_tornado_server_settings(self.settings)
             app.listen(port, bind_address, **server_settings)
             self._logger.info('listen port %d', port)
         else:
-            self._logger.warn('no http interface, HTTP_PORT: %s',
-                              str(self.settings['HTTP_PORT']))
+            self._logger.warn('no http interface, PORT: %s',
+                              str(self.settings['PORT']))
         self._logger.info('[RUN] extensions')
         self._manager.run_extensions()
 

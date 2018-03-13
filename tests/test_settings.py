@@ -22,7 +22,7 @@ def test_iter_overridden_settings(settings):
     for key, value in iter_overridden_settings(settings):
         count += 1
     assert count == 0
-    settings["HTTP_PORT"] = 8000
+    settings["PORT"] = 8000
     settings["LOG_ENABLE"] = True
     count = 0
     for key, value in iter_overridden_settings(settings):

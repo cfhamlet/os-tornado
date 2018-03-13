@@ -53,7 +53,7 @@ def test_cmdline():
         assert cmd in result
 
 
-@pytest.mark.skip(reason="tornado do not support get_unused_port")
+@pytest.mark.skip(reason="tornado do not support get_unused_port anymore")
 def test_runserver():
     port = tornado.testing.get_unused_port()
     env = os.environ.copy()
@@ -70,10 +70,10 @@ def test_runserver():
     assert 'STOP SUCC' in stdout
 
     port = tornado.testing.get_unused_port()
-    stdout, stderr = run('runserver -s HTTP_PORT=%d' % port, env=env)
+    stdout, stderr = run('runserver -s PORT=%d' % port, env=env)
     assert 'listen port %d' % port in stderr
 
     port1 = tornado.testing.get_unused_port()
-    stdout, stderr = run('runserver -s HTTP_PORT=%d -p %d' %
+    stdout, stderr = run('runserver -s PORT=%d -p %d' %
                          (port, port1), env=env)
     assert 'listen port %d' % port1 in stderr

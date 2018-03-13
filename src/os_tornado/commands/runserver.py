@@ -13,14 +13,14 @@ class RunserverCommand(Command):
 
     def add_options(self, parser):
         super(RunserverCommand, self).add_options(parser)
-        default_port = self.settings["HTTP_PORT"]
-        parser.add_option("-p", "--port", action="store", dest="http_port",
-                          type=int, help="set http port (default: %s)" % str(default_port))
+        default_port = self.settings["PORT"]
+        parser.add_option("-p", "--port", action="store", dest="port",
+                          type=int, help="set listen port (default: %s)" % str(default_port))
 
     def process_options(self, args, opts):
         super(RunserverCommand, self).process_options(args, opts)
-        if opts.http_port:
-            self.settings["HTTP_PORT"] = opts.http_port
+        if opts.port:
+            self.settings["PORT"] = opts.port
 
     def run(self, args, opts):
         manager = ComponentManager(self.settings)

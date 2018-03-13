@@ -1,11 +1,11 @@
-import signal
-import shlex
-import sys
 import os
-import time
+import shlex
+import signal
 import subprocess
-from os_tornado.utils.signal_utils import install_shutdown_handlers
+import sys
+import time
 
+from os_tornado.utils.signal_utils import install_shutdown_handlers
 
 _IT_WORKS = 123
 

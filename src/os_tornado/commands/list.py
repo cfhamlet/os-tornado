@@ -1,9 +1,9 @@
 """The list command"""
 from __future__ import print_function
+
 from os_tornado.commands import Command
 from os_tornado.component_manager import ComponentManager
 from os_tornado.exceptions import UsageError
-
 
 _TYPE = set(['ext', 'req', 'all'])
 

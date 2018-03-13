@@ -1,6 +1,7 @@
 """Request Handler Manager"""
-import logging
 import copy
+import logging
+
 import tornado.web
 from os_tornado.utils.module_utils import load_class
 

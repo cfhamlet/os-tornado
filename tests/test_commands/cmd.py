@@ -1,9 +1,10 @@
-import shlex
 import os
-import sys
+import shlex
 import subprocess
-from os_tornado.cmdline import execute
+import sys
+
 import tornado.ioloop
+from os_tornado.cmdline import execute
 
 
 def run(cmdline='', env=None, ** kwargs):

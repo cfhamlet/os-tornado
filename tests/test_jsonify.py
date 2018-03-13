@@ -1,6 +1,7 @@
-import pytest
 import json
 import urlparse
+
+import pytest
 import tornado.ioloop
 from os_tornado.decorators import jsonify
 

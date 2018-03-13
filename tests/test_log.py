@@ -1,8 +1,9 @@
-import re
-import pytest
 import logging
-from os_tornado.settings import Settings, default_settings
+import re
+
+import pytest
 from os_tornado.log import configure_logging
+from os_tornado.settings import Settings, default_settings
 
 
 @pytest.fixture(scope="function")

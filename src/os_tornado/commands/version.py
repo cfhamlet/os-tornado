@@ -1,6 +1,7 @@
 from __future__ import print_function
-from os_tornado.commands import Command
+
 import os_tornado
+from os_tornado.commands import Command
 
 
 class VersionCommand(Command):

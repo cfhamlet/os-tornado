@@ -1,9 +1,11 @@
 from __future__ import print_function
+
+import os
 import re
 import sys
-import os
-from os.path import join, exists, abspath
-from shutil import copy2, ignore_patterns, copystat
+from os.path import abspath, exists, join
+from shutil import copy2, copystat, ignore_patterns
+
 import os_tornado
 from os_tornado.commands import Command
 from os_tornado.exceptions import UsageError

@@ -1,9 +1,11 @@
 import logging
+
 import tornado
-from tornado.autoreload import add_reload_hook
 from os_tornado.log import configure_logging
-from os_tornado.settings import get_tornado_app_settings, get_tornado_server_settings
+from os_tornado.settings import (get_tornado_app_settings,
+                                 get_tornado_server_settings)
 from os_tornado.utils.signal_utils import install_shutdown_handlers
+from tornado.autoreload import add_reload_hook
 
 
 class Runner(object):

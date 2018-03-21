@@ -33,7 +33,7 @@ def test_install_shutdown_handlers():
     proc = subprocess.Popen(shlex.split('python -u %s' %
                                         os.path.abspath(__file__)),
                             stdout=subprocess.PIPE, env=test_env)
-    while 'start' not in proc.stdout.readline():
+    while 'start' not in proc.stdout.readline().decode('utf8'):
         time.sleep(0.1)
     proc.send_signal(signal.SIGTERM)
     proc.communicate()

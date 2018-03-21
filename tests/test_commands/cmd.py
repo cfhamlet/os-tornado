@@ -25,7 +25,7 @@ def run(cmdline='', env=None, ** kwargs):
 
 
 def stop():
-    print 'STOP SUCC'
+    print('STOP SUCC')
     tornado.ioloop.IOLoop.current().stop()
 
 

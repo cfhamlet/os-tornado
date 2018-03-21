@@ -1,9 +1,15 @@
 import json
-import urlparse
+import sys
 
 import pytest
 import tornado.ioloop
 from os_tornado.decorators import jsonify
+
+_PY3 = sys.version_info[0] >= 3
+if _PY3:
+    from urllib.parse import urljoin
+else:
+    from urlparse import urljoin
 
 
 def test_not_request_handler_class():
@@ -41,7 +47,7 @@ def app():
 @pytest.mark.skip(reason="pytest-tornado don't support lastest version")
 @pytest.mark.gen_test
 def test_return_dict(http_client, base_url):
-    response = yield http_client.fetch(urlparse.urljoin(base_url, '/get/ok'))
+    response = yield http_client.fetch(urljoin(base_url, '/get/ok'))
     assert response.code == 200
     assert json.loads(response.body) == {'status': 'ok'}
 
@@ -49,6 +55,6 @@ def test_return_dict(http_client, base_url):
 @pytest.mark.skip(reason="pytest-tornado don't support lastest version")
 @pytest.mark.gen_test
 def test_not_found(http_client, base_url):
-    response = yield http_client.fetch(urlparse.urljoin(base_url, '/get/404'), raise_error=False)
+    response = yield http_client.fetch(urljoin(base_url, '/get/404'), raise_error=False)
     assert response.code == 404
     assert json.loads(response.body)['status_code'] == 404

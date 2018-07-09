@@ -1,5 +1,5 @@
 """
-This module contains the default values used by os-torado.
+This module contains the default values used by os-tornado.
 """
 
 LOG_ENABLED = True

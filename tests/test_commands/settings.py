@@ -1,3 +1,5 @@
+TORNADO_APP_SETTINGS_COOKIE_SECRET = 'secret_key'
+
 EXTENSIONS = [
     {
         "name": "Temp",

@@ -1,4 +1,4 @@
-"""Base class for Scrapy commands"""
+"""Base class for os-tornado commands"""
 from optparse import OptionGroup
 
 from os_tornado.exceptions import UsageError

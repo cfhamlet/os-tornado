@@ -2,13 +2,15 @@ from __future__ import print_function
 
 import os
 import re
+import string
 import sys
-from os.path import abspath, exists, join
+from importlib import import_module
 from shutil import copy2, copystat, ignore_patterns
 
 import os_tornado
 from os_tornado.commands import Command
 from os_tornado.exceptions import UsageError
+from os_tornado.utils import get_random_secret_key
 
 IGNORE = ignore_patterns('*.pyc', '.svn')
 
@@ -23,11 +25,22 @@ class C(Command):
         return "Create new project."
 
     def _is_valid_name(self, project_name):
+        def _module_exists(module_name):
+            try:
+                import_module(module_name)
+                return True
+            except ImportError:
+                return False
+
         if not re.search(r'^[_a-zA-Z]\w*$', project_name):
             print('Error: Project names must begin with a letter and contain'
                   ' only\nletters, numbers and underscores')
-            return False
-        return True
+        elif _module_exists(project_name):
+            print('Error: Module %r already exists' % project_name)
+        else:
+            return True
+
+        return False
 
     def _copy_tpl(self, src, dst):
         ignore = IGNORE
@@ -43,13 +56,27 @@ class C(Command):
 
             src_name = os.path.join(src, name)
             dst_name = os.path.join(dst, name)
-            if dst_name.endswith('.tpl'):
-                dst_name = dst_name[:-4]
             if os.path.isdir(src_name):
                 self._copy_tpl(src_name, dst_name)
             else:
                 copy2(src_name, dst_name)
         copystat(src, dst)
+
+    def _render_tpl(self, project_dir, **kwargs):
+        template_files = []
+        for directory, _, filenames in os.walk(project_dir):
+            for name in filenames:
+                template_file = os.path.join(directory,  name)
+                if not template_file.endswith('.tpl'):
+                    continue
+                template_files.append(template_file)
+        for template_file in template_files:
+            with open(template_file, 'rb') as fp:
+                raw = fp.read().decode('utf8')
+            content = string.Template(raw).substitute(**kwargs)
+            with open(template_file[0:-len('.tpl')], 'wb') as df:
+                df.write(content.encode('utf8'))
+            os.remove(template_file)
 
     def run(self, args, opts):
         if len(args) not in (1, 2):
@@ -63,11 +90,12 @@ class C(Command):
         if len(args) == 2:
             project_dir = args[1]
 
-        project_path = join(abspath(project_dir), project_name)
-        if exists(project_path):
+        project_path = os.path.join(os.path.abspath(project_dir), project_name)
+        if os.path.exists(project_path):
             print('Error: %s already exists' % project_path)
             sys.exit(1)
         self._copy_tpl(self.templates_dir, project_path)
+        self._render_tpl(project_path, COOKIE_SECRET=get_random_secret_key())
         print("New os-tornado project: %r" % project_name)
         print("Using template directory:")
         print("    %s\n" % self.templates_dir)
@@ -80,5 +108,5 @@ class C(Command):
     @property
     def templates_dir(self):
         _templates_base_dir = self.settings['TEMPLATES_DIR'] or \
-            join(os_tornado.__path__[0], 'commands/project_template')
-        return _templates_base_dir
+            os.path.join(os_tornado.__path__[0], 'commands')
+        return os.path.join(_templates_base_dir, 'project_template')

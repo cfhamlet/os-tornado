@@ -17,7 +17,11 @@ os-tornado
    :target: https://pypi.python.org/pypi/os-tornado
 
 
+
 A framework to organize tornado project and simplify development.
+
+.. important::
+   This project will no longer maintenance. You can use `os-sanic <https://github.com/cfhamlet/os-sanic>`_ as substitute which has better performance and more flexible.
 
 Install
 -------
